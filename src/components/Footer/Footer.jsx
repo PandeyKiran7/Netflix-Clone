@@ -12,7 +12,7 @@ const Footer = () => {
         <img src= {facebook_icon} alt="" />
         <img src= {instagram_icon} alt="" />
         <img src= {twitter_icon} alt="" />
-        <img src= {youtube_icon} alt="" />
+        <img src= {youtube_icon} alt="" />  
       </div>
       <ul>
         <li>Audio Description</li>
