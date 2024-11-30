@@ -19,7 +19,7 @@ const Player = () => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`, // Use environment variable for security
+      Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
 
@@ -29,9 +29,9 @@ const Player = () => {
       options
     )
       .then((res) => res.json())
-      .then((res) => setApiData(res.results?.[0] || {})) // Add fallback for results
+      .then((res) => setApiData(res.results?.[0] || {})) 
       .catch((err) => console.error(err));
-  }, [id]); // Include `id` in the dependency array
+  }, [id]); 
 
   return (
     <div className="player">
