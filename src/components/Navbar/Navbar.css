@@ -1,80 +1,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
 
 .navbar {
-    width: 100%;
-    padding: 20px 6%;
-    display: flex;
-    justify-content: space-between;
-    position: fixed;
-    font-size: 14px;
-    color: #e5e5e5;
-    top: 0;
-    z-index: 1000; 
-    background-color: rgba(0, 0, 0, 0.8);
-    background-image: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+  width: 100%;
+  padding: 20px 6%;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  font-size: 14px;
+  color: #e5e5e5;
+  top: 0;
+  z-index: 1000;
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
+  transition: background-color 0.3s ease; 
 }
 
-.navbar-left{
-    display: flex;
-    align-items: center;
-    gap: 50px;
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 50px;
 }
+
 .navbar-left img {
-    width: 90px;
+  width: 90px;
 }
 
-.navbar-left ul{
-    display: flex;
-    list-style: none;
-    gap: 20px;
+.navbar-left ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
 }
 
 .navbar-left ul li {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .navbar-right {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .navbar-right .icons {
-    width: 20px;
-    cursor: pointer;
+  width: 20px;
+  cursor: pointer;
 }
 
 .navbar-right .profile {
-    border-radius: 8px;
-    width: 35px;
+  border-radius: 8px;
+  width: 35px;
 }
 
 .navbar-profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }
+
 .navbar .dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: max-content;
-    background: #191919;
-    padding: 18px 22px;
-    border-radius: 2px;
-    text-decoration: underline;
-    z-index: 1;
-    visibility: hidden;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: max-content;
+  background: #191919;
+  padding: 18px 22px;
+  border-radius: 2px;
+  text-decoration: underline;
+  z-index: 1;
+  visibility: hidden;
 }
 
-.navbar .dropdown  p {
-    font-size:13px ;
-    cursor: pointer;
-   
+.navbar .dropdown p {
+  font-size: 13px;
+  cursor: pointer;
 }
 
-.navbar-profile:hover .dropdown{
-    display: block;
-    visibility: visible;
+.navbar-profile:hover .dropdown {
+  display: block;
+  visibility: visible;
+}
+
+.nav-dark {
+    background-color:#141414 ;
+}
+
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 15px 5%;
+  }
+
+  .navbar-left ul {
+    gap: 15px;
+  }
+
+  .navbar-right {
+    gap: 15px;
+  }
+
+  .navbar-left img {
+    width: 80px;
+  }
+
+  .navbar-right .icons {
+    width: 18px;
+  }
+
+  .navbar-right .profile {
+    width: 30px;
+  }
 }

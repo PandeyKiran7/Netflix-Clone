@@ -1,21 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./TitleCards.css";
-import cards_data from "../../assets/cards/Cards_data";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const TitleCards = ({ title, category }) => {
-
-  const [apiData,setApiData] = useState([]);
-
+  const [apiData, setApiData] = useState([]);
   const cardsRef = useRef();
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NTJiNGFiNjIyOTYyYTVmYTlkZmYzMDVlZTY4YTM2YyIsIm5iZiI6MTczMjg3NjY4My4wMTkzNSwic3ViIjoiNjc0OTk3OTYzOWU2ZjQzZTMwZDk2NDUyIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.71vU7LgKdhwVLe1-rPtJAy22n6dOHkSOOY05ypsIJqU",
-    },
-  };
 
   const handleWheel = (e) => {
     e.preventDefault();
@@ -23,32 +13,66 @@ const TitleCards = ({ title, category }) => {
   };
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${category?category:"now_playing"}?language=en-US&page=1`,
-      options
-    )
-      .then((res) => res.json())
-      .then((res) => setApiData(res.results))
-      .catch((err) => console.error(err));
+    const fetchData = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
+        },
+      };
 
-    cardsRef.current.addEventListener("wheel", handleWheel);
-  }, []);
+      try {
+        const res = await fetch(
+          `https://api.themoviedb.org/3/movie/${
+            category ? category : "now_playing"
+          }?language=en-US&page=1`,
+          options
+        );
+        const data = await res.json();
+        setApiData(data.results || []);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchData();
+
+    const cardsElement = cardsRef.current;
+    cardsElement.addEventListener("wheel", handleWheel);
+
+    return () => cardsElement.removeEventListener("wheel", handleWheel);
+  }, [category]);
 
   return (
     <div className="titlecard">
-      <h2 style={{ fontSize: 24 }}>{title ? title : "Popular on Netflix"}</h2>
+      <h2 style={{ fontSize: 24 }}>{title || "Popular on Netflix"}</h2>
       <div className="card-list" ref={cardsRef}>
-        {apiData.map((card, index) => {
-          return (
-            <div className="card" key={index}>
-              <img src={ `https://image.tmdb.org/t/p/w500`+card.backdrop_path} alt="" />
+        {apiData.length > 0 ? (
+          apiData.map((card, index) => (
+            <Link to={`/player/${card.id}`} className="card" key={index}>
+              <img
+                src={
+                  card.backdrop_path
+                    ? `https://image.tmdb.org/t/p/w500${card.backdrop_path}`
+                    : "path/to/placeholder-image.jpg"
+                }
+                alt={card.original_title || "No Title Available"}
+              />
               <p>{card.original_title}</p>
-            </div>
-          );
-        })}
+            </Link>
+          ))
+        ) : (
+          <p>Loading movies...</p>
+        )}
       </div>
     </div>
   );
+};
+
+TitleCards.propTypes = {
+  title: PropTypes.string,
+  category: PropTypes.string,
 };
 
 export default TitleCards;
