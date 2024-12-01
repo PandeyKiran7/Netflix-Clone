@@ -1,86 +1,84 @@
 import React, { useState } from "react";
 import "./Login.css";
 import logo from "../../assets/logo.png";
+import { login, signup } from "../../Firebase";
 
 const Login = () => {
   const [signState, setSignState] = useState("Sign In");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const user_auth = async (event) => {
+    event.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add form validation (example)
-    if (!formData.email || !formData.password) {
-      setErrors({
-        email: formData.email ? "" : "Email is required",
-        password: formData.password ? "" : "Password is required",
-      });
-      return;
+    // Validation for input fields
+    const newErrors = {
+      name: signState === "Sign Up" && !name ? "Name is required" : "",
+      email: !email ? "Email is required" : "",
+      password: !password ? "Password is required" : "",
+    };
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some((error) => error)) return;
+
+    try {
+      if (signState === "Sign In") {
+        await login(email, password);
+        alert("Sign In Successful!");
+      } else {
+        await signup(name, email, password);
+        alert("Sign Up Successful!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Authentication failed. Please try again.");
     }
-
-    // Handle login/signup logic here
   };
 
   return (
     <div className="login">
-      <img src={logo} className="login-logo" alt="Logo" />
+      <img src={logo} className="login-logo" alt="Netflix logo" />
       <div className="login-form">
         <h1>{signState}</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={user_auth}>
           {signState === "Sign Up" && (
             <div>
               <label htmlFor="name">Your Name:</label>
               <input
                 type="text"
                 id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
               />
+              {errors.name && <p className="error">{errors.name}</p>}
             </div>
           )}
-
           <div>
             <label htmlFor="email">Your Email:</label>
             <input
               type="email"
               id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email address"
             />
             {errors.email && <p className="error">{errors.email}</p>}
           </div>
-
           <div>
             <label htmlFor="password">Password:</label>
             <input
               type="password"
               id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
             {errors.password && <p className="error">{errors.password}</p>}
           </div>
-
-          <button type="submit">{signState}</button>
-
+          <button type="submit" onClick={user_auth}>{signState}</button>
           <div className="form-help">
             <div className="remember">
               <input type="checkbox" id="rememberMe" />
@@ -89,7 +87,6 @@ const Login = () => {
             <p>Need Help?</p>
           </div>
         </form>
-
         <div className="form-switch">
           {signState === "Sign In" ? (
             <p>
