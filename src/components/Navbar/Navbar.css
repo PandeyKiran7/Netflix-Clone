@@ -1,112 +1,108 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-
 .navbar {
-  width: 100%;
-  padding: 20px 6%;
   display: flex;
   justify-content: space-between;
-  position: fixed;
-  font-size: 14px;
-  color: #e5e5e5;
-  top: 0;
-  z-index: 1000;
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
-  transition: background-color 0.3s ease; 
-}
-
-.navbar-left {
-  display: flex;
   align-items: center;
-  gap: 50px;
+  padding: 10px 20px;
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
 }
 
-.navbar-left img {
-  width: 90px;
+.nav-dark {
+  background-color: #141414;
 }
 
-.navbar-left ul {
+.navbar-left .logo {
+  width: 100px;
+}
+
+.nav-menu {
   display: flex;
-  list-style: none;
   gap: 20px;
+  list-style: none;
+  margin-left: 20px;
 }
 
-.navbar-left ul li {
+.nav-menu li {
+  color: #fff;
   cursor: pointer;
 }
 
 .navbar-right {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 20px;
 }
 
-.navbar-right .icons {
+.icon {
   width: 20px;
   cursor: pointer;
 }
 
-.navbar-right .profile {
-  border-radius: 8px;
-  width: 35px;
+.children {
+  color: #fff;
 }
 
 .navbar-profile {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
   cursor: pointer;
 }
 
-.navbar .dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: max-content;
-  background: #191919;
-  padding: 18px 22px;
-  border-radius: 2px;
-  text-decoration: underline;
-  z-index: 1;
-  visibility: hidden;
+.profile-img {
+  width: 30px;
+  border-radius: 50%;
 }
 
-.navbar .dropdown p {
-  font-size: 13px;
+.caret-icon {
+  width: 10px;
+  margin-left: 5px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #141414;
+  padding: 10px;
+  border-radius: 4px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.dropdown .signout {
+  color: #fff;
   cursor: pointer;
 }
 
 .navbar-profile:hover .dropdown {
-  display: block;
-  visibility: visible;
+  display: flex;
 }
 
-.nav-dark {
-    background-color:#141414 ;
-}
-
-
-@media screen and (max-width: 768px) {
+@media (max-width:800px) {
   .navbar {
-    padding: 15px 5%;
+    padding: 20px 4%;
   }
-
   .navbar-left ul {
-    gap: 15px;
+    display: none;
   }
+  .navbar img {
+    height: 25px;
+  }
+}
 
-  .navbar-right {
-    gap: 15px;
-  }
-
-  .navbar-left img {
-    width: 80px;
-  }
-
-  .navbar-right .icons {
-    width: 18px;
-  }
-
-  .navbar-right .profile {
-    width: 30px;
-  }
+@media (max-width:500px) {
+    .navbar img {
+      height: 20px;
+    }
+    .navbar-right {
+      gap: 10px;
+    }
 }

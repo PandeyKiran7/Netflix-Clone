@@ -131,6 +131,18 @@ label {
 .form-switch p {
     font-size: 14px;
 }
+.login-sipinner
+{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-sipinner img {
+    width: 60px;
+}
 
 @media (max-width: 768px) {
     .login {
