@@ -41,17 +41,14 @@
     padding-left: 6%;
 }
 @media (max-width:800px){
-        .title-cards {
-            margin-top: 20px;
-            margin-bottom: 0;
-        }
+       
         .title-cards h2 {
-            font-size: 20px;
+            font-size: 15px;
         }
         .card-list img {
-            width: 200px;
+            width: 165px;
         }
         .card-list p {
-            font-size: 12px;
+            font-size: 10px;
         }
 }
